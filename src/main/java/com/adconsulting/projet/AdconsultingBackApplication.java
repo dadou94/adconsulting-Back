@@ -2,6 +2,8 @@ package com.adconsulting.projet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -23,29 +25,24 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
+
 import java.sql.*;
 
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-import java.sql.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.apache.commons.dbcp.BasicDataSource;
 
-@SpringBootApplication
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class AdconsultingBackApplication {
 
 	
     @Autowired
-    private DataSource dataSource;
+    private BasicDataSource dataSource;
 
 	
 	public static void main(String[] args) {
@@ -53,7 +50,8 @@ public class AdconsultingBackApplication {
 	}
 
 	
-	@Bean public CorsConfigurationSource corsConfigurationSource() {
+	@Bean 
+	public CorsConfigurationSource corsConfigurationSource() {
 		  CorsConfiguration configuration = new CorsConfiguration();
 		  configuration.setAllowedOrigins(Collections.singletonList(
 		  "https://ad-consultingg.herokuapp.com/"));
