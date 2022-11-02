@@ -1,6 +1,7 @@
 package com.adconsulting.projet;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
@@ -37,7 +38,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 
 import org.apache.commons.dbcp.BasicDataSource;
 
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+
+@SpringBootApplication
 public class AdconsultingBackApplication {
 
 	
