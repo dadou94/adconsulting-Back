@@ -36,31 +36,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class AdconsultingBackApplication {
 
+	
+    @Autowired
+    private DataSource dataSource;
+
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AdconsultingBackApplication.class, args);
 	}
-	
-	/*
-	 * @Bean public CorsConfigurationSource corsConfigurationSource() {
-	 * CorsConfiguration configuration = new CorsConfiguration();
-	 * configuration.setAllowedOrigins(Collections.singletonList(
-	 * "https://ad-consultingg.herokuapp.com/"));
-	 * configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE",
-	 * "PATCH", "OPTIONS"));
-	 * configuration.setExposedHeaders(Arrays.asList("Authorization",
-	 * "content-type"));
-	 * configuration.setAllowedHeaders(Arrays.asList("Authorization",
-	 * "content-type")); UrlBasedCorsConfigurationSource source = new
-	 * UrlBasedCorsConfigurationSource(); source.registerCorsConfiguration("/**",
-	 * configuration); return source;
-	 * 
-	 * }
-	 */
+
 	
 	@Bean public CorsConfigurationSource corsConfigurationSource() {
 		  CorsConfiguration configuration = new CorsConfiguration();
 		  configuration.setAllowedOrigins(Collections.singletonList(
-		  "http://localhost:4200/"));
+		  "https://ad-consultingg.herokuapp.com/"));
 		  configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE",
 		  "PATCH", "OPTIONS"));
 		  configuration.setExposedHeaders(Arrays.asList("Authorization",
@@ -73,4 +62,17 @@ public class AdconsultingBackApplication {
 		  return source;
 		  
 		  }
+	
+	
+    @PostConstruct
+    public void myRealMainMethod() throws SQLException {
+        Statement stmt = dataSource.getConnection().createStatement();
+        stmt.executeUpdate("DROP TABLE IF EXISTS ticks");
+        stmt.executeUpdate("CREATE TABLE ticks (tick timestamp)");
+        stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+        ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+        while (rs.next()) {
+            System.out.println("Read from DB: " + rs.getTimestamp("tick"));
+        }
+    }
 }
