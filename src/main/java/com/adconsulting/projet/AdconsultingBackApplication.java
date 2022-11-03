@@ -39,7 +39,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.apache.commons.dbcp.BasicDataSource;
 
 
-@SpringBootApplication
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class AdconsultingBackApplication {
 
 	
