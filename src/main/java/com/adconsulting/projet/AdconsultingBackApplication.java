@@ -70,7 +70,7 @@ public class AdconsultingBackApplication {
 		  
 		  }
 	
-	
+	/*
     @PostConstruct
     public void myRealMainMethod() throws SQLException {
         Statement stmt = dataSource.getConnection().createStatement();
@@ -80,6 +80,6 @@ public class AdconsultingBackApplication {
         ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
         while (rs.next()) {
             System.out.println("Read from DB: " + rs.getTimestamp("tick"));
-        }
-    }
+        }*/
+   // }
 }
