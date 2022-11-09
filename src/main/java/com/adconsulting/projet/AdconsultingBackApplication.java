@@ -50,13 +50,11 @@ import javax.sql.DataSource;
 public class AdconsultingBackApplication {
 
 	
-    @Autowired
-    private DataSource dataSource;
 
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AdconsultingBackApplication.class, args);
-		 GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationContext.xml");
+		
 	}
 
 	
@@ -78,16 +76,5 @@ public class AdconsultingBackApplication {
 		  
 		  }
 	
-	
-    @PostConstruct
-    public void myRealMainMethod() throws SQLException {
-        Statement stmt = dataSource.getConnection().createStatement();
-        stmt.executeUpdate("DROP TABLE IF EXISTS ticks");
-        stmt.executeUpdate("CREATE TABLE ticks (tick timestamp)");
-        stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-        ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-        while (rs.next()) {
-            System.out.println("Read from DB: " + rs.getTimestamp("tick"));
-        }
-    }
+
 }
