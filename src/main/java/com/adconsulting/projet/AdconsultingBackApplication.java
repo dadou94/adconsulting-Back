@@ -36,7 +36,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 
-import org.apache.commons.dbcp.BasicDataSource;
+
+
+import org.springframework.context.ConfigurableApplicationContext;
+
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+import javax.sql.DataSource;
+
 
 
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
@@ -44,11 +51,12 @@ public class AdconsultingBackApplication {
 
 	
     @Autowired
-    private BasicDataSource dataSource;
+    private DataSource dataSource;
 
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AdconsultingBackApplication.class, args);
+		 GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationContext.xml");
 	}
 
 	
@@ -70,7 +78,7 @@ public class AdconsultingBackApplication {
 		  
 		  }
 	
-	/*
+	
     @PostConstruct
     public void myRealMainMethod() throws SQLException {
         Statement stmt = dataSource.getConnection().createStatement();
@@ -80,6 +88,6 @@ public class AdconsultingBackApplication {
         ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
         while (rs.next()) {
             System.out.println("Read from DB: " + rs.getTimestamp("tick"));
-        }*/
-   // }
+        }
+    }
 }
